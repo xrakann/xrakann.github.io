@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Random Cat GIF Generator</title>
+  </head>
+  <body>
+    <h1>Random Cat GIF Generator</h1>
+    <button onclick="getRandomCatGif()">Get Random Cat GIF</button>
+    <br><br>
+    <img id="catGif" src="" alt="">
+    
+    <script>
+      function getRandomCatGif() {
+        // Define the endpoint to search for cat GIFs
+        const endpoint = "https://api.thecatapi.com/v1/images/search?mime_types=gif";
+        
+        // Make an HTTP request to the TheCatAPI
+        fetch(endpoint)
+          .then(response => response.json())
+          .then(data => {
+            // Get the URL of the random cat GIF from the API response
+            const gifUrl = data[0].url;
+            
+            // Set the "src" attribute of the <img> element to display the cat GIF
+            const catGif = document.getElementById("catGif");
+            catGif.setAttribute("src", gifUrl);
+          })
+          .catch(error => console.log(error));
+      }
+    </script>
+  </body>
+</html>
