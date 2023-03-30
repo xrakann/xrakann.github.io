@@ -1,32 +1,82 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Random Cat GIF Generator</title>
-  </head>
-  <body>
-    <h1>Random Cat GIF Generator</h1>
-    <button onclick="getRandomCatGif()">Get Random Cat GIF</button>
-    <br><br>
-    <img id="catGif" src="" alt="">
-    
-    <script>
-      function getRandomCatGif() {
-        // Define the endpoint to search for cat GIFs
-        const endpoint = "https://api.thecatapi.com/v1/images/search?mime_types=gif";
-        
-        // Make an HTTP request to the TheCatAPI
-        fetch(endpoint)
-          .then(response => response.json())
-          .then(data => {
-            // Get the URL of the random cat GIF from the API response
-            const gifUrl = data[0].url;
-            
-            // Set the "src" attribute of the <img> element to display the cat GIF
-            const catGif = document.getElementById("catGif");
-            catGif.setAttribute("src", gifUrl);
-          })
-          .catch(error => console.log(error));
-      }
-    </script>
-  </body>
-</html>
+<head>
+	<title>Random Cat GIF Generator</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+		.container {
+			max-width: 500px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+		.title {
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+			margin-top: 20px;
+			margin-bottom: 10px;
+		}
+		.subtitle {
+			font-size: 16px;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+		button {
+			display: block;
+			margin: 0 auto;
+			padding: 10px 20px;
+			background-color: #ff5a5f;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		button:hover {
+			background-color: #ff7b7f;
+		}
+		.gif-container {
+			text-align: center;
+			margin-top: 20px;
+		}
+		.gif-container img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 5px;
+			box-shadow: 0 0 5px rgba(0,0,0,0.3);
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1 class="title">Random Cat GIF Generator</h1>
+		<p class="subtitle">Click the button to generate a random cat GIF:</p>
+		<button onclick="generateGIF()">Generate</button>
+		<div class="gif-container" id="gif-container"></div>
+	</div>
+	
+	<script>
+		function generateGIF() {
+			// list of cat GIFs
+			var catGIFs = [
+				"https://media.giphy.com/media/jpbnoe3UIa8TU8LM13/giphy.gif",
+				"https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
+				"https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif",
+				"https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif",
+				"https://media.giphy.com/media/6VoDJzfRjJNbG/giphy.gif",
+				"https://media.giphy.com/media/tYfC75iG4xK3a2q4H4/giphy.gif",
+				"https://media.giphy.com/media/YaOxRsmrv9IeA/giphy.gif",
+				"https://media.giphy.com/media/3o6Zt481isNVuQI4Pe/giphy.gif",
+				"https://media.giphy.com/media/5vZlkpG1JAWAU/giphy.gif",
+				"https://media.giphy.com/media/q1MeAPDDMb43K/giphy.gif"
+			];
+			// pick a random GIF from the list
+			var randomGIF = catGIFs[Math.floor(Math.random() * catGIFs.length)];
+			// create an image element with the GIF URL
+			var img = document.createElement("img");
