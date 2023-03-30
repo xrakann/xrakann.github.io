@@ -61,22 +61,27 @@
 		<div class="gif-container" id="gif-container"></div>
 	</div>
 	
+	<script src="https://cdn.tenor.com/js/v1/tenor.min.js" type="text/javascript"></script>
 	<script>
 		function generateGIF() {
-			// list of cat GIFs
-			var catGIFs = [
-				"https://media.giphy.com/media/jpbnoe3UIa8TU8LM13/giphy.gif",
-				"https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif",
-				"https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif",
-				"https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif",
-				"https://media.giphy.com/media/6VoDJzfRjJNbG/giphy.gif",
-				"https://media.giphy.com/media/tYfC75iG4xK3a2q4H4/giphy.gif",
-				"https://media.giphy.com/media/YaOxRsmrv9IeA/giphy.gif",
-				"https://media.giphy.com/media/3o6Zt481isNVuQI4Pe/giphy.gif",
-				"https://media.giphy.com/media/5vZlkpG1JAWAU/giphy.gif",
-				"https://media.giphy.com/media/q1MeAPDDMb43K/giphy.gif"
-			];
-			// pick a random GIF from the list
-			var randomGIF = catGIFs[Math.floor(Math.random() * catGIFs.length)];
-			// create an image element with the GIF URL
-			var img = document.createElement("img");
+			// set the API key
+			TenorAPIKey = "AIzaSyARb0uuyV0eOrSYKZQ2l5DGIfb33-8VMxE";
+			// search query for cats
+			var query = "cats";
+			// set the API limit
+			var limit = 50;
+			// get a random GIF from the API
+			Tenor.Search.Random(query, limit)
+				.then(function(response) {
+					var randomGIF = response.results[Math.floor(Math.random() * response.results.length)];
+					// display the GIF
+					var gifContainer = document.getElementById("gif-container");
+					gifContainer.innerHTML = '<img src="' + randomGIF.media[0].gif.url + '" alt="cat GIF">';
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+		}
+	</script>
+</body>
+</html>
